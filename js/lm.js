@@ -1,0 +1,1 @@
+document.writeln("<div class=\'appdown appUrl\'><a href=\'http://oicq163.ys168.com\' target=\'_blank\'><img src=\'img/hz.jpg\'></a></div>");
