@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>在线画板 涂鸦画板 画画 画图</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body oncontextmenu="return false" onselectstart="return false">
+    <canvas id="myCanvas"></canvas>
+    <div class="actions" id="actions">
+        <div class="options" id='options'>一个奇鸽</div>
+        <div class="reset" id='reset'>重置</div>
+        <div class="clear" id='clear'>清空</div>
+        <div class="pencil active" id="pencil">铅笔</div>
+        <div class="pen" id="pen">钢笔</div>
+        <div class="brush" id="brush">毛笔</div>
+        <div class="eraser" id='eraser'>橡皮</div>
+        <div class="brushColorBtn" id="brushColorBtn">笔刷颜色</div>
+        <div class="bgBtn" id="bgBtn">画布背景</div>
+    </div>
+    <input type="color" class="brushColor" id='brushColor' value="#444444">
+    <input type="color" class="bgColor" id="bgColor" value="#ffffff">
+    <script src="./main.js"></script>
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+<script>
+      alert("\n需要保存图片，还请截图保存\n");
+    </script> 
+</body>
+
+</html>
