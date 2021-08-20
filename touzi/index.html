@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <meta property="og:title" content="擲骰子" />
+        <meta property="og:description" content="一般常見的骰子是六個面的正立方體，它的每一面所標示的點數分別為 1、2、3、4、5 及 6 個點，每一面的點數都不同。" />
+        <meta property="og:locale" content="zh_TW" />
+        <meta property="og:type" content="website" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" integrity="sha512-oc9+XSs1H243/FRN9Rw62Fn8EtxjEYWHXRvjS43YtueEewbS6ObfXcJNyohjHqVKFPoXXUxwc+q1K7Dee6vv9g==" crossorigin="anonymous"/>
+        <link rel="stylesheet" href="css/roll-a-die.css" />
+        <title>擲骰子</title>
+    </head>
+    <body>
+        <html>
+            <body>
+                <div class="container">
+                    <div class="row">
+                        <div class="mx-auto mt-4 offset-2 col-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    擲骰子
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">遊戲說明</h5>
+                                    <p class="card-text">點擊按鈕來擲骰子</p>
+                                    <div class="dice m-auto">
+                                        <img src="images/dice-1.svg" id="dice_img" class="d-block w-100" />
+                                    </div>
+                                    <div class="w-100 text-center">
+                                        <button id="throw" class="btn btn-primary my-3 w-25">擲</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </body>
+        </html>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous" defer></script>
+        <script src="js/roll-a-die.js" defer></script>
+    </body>
+</html>
