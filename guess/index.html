@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0,viewport-fit=cover">
+    <title>猜数字</title>
+    <script src="https://cdn.bootcss.com/vue/2.2.2/vue.min.js"></script>
+    <style>
+        .fr {
+            color: red;
+        }
+
+        .fg {
+            color: green;
+        }
+
+        .fb {
+            color: black;
+        }
+
+        .fs20 {
+            font-size: 20px;
+        }
+
+        .btn {
+            background: yellow;
+            border: 1px solid red;
+            cursor: pointer;
+        }
+
+        .num_btn_f {
+            background: gainsboro;
+            border: 1px solid #cccccc;
+            cursor: pointer;
+        }
+
+        .num_btn_t {
+            background: greenyellow;
+            border: 1px solid #c1bfbf;
+            cursor: pointer;
+        }
+
+        .nums {
+            word-break: normal;
+            width: auto;
+            display: block;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <h2>猜数字</h2>
+        <h4>猜一个随机数，点击下面的数字，用最少次数找到它</h4>
+        <hr>
+        <span>{{ message }}</span>
+        <span class="fr btn" @click="newGame(count)">重新玩</span>
+        <span class="fr btn" v-if="success" @click="nextGame(count)">下一关</span>
+        <!-- <p>结果是： {{random}}</p> -->
+        <p class="fr">提示 : {{tip}}</p>
+        <p class="fr">{{history.length}}次操作：
+            <template v-for="h,i in history">{{h}} </template>
+        </p>
+        <hr>
+        <div class="nums">
+            <template v-for="num in count">
+                <span class="num_btn_f" @click="input(num)" v-if="num < left || num > right">{{num}}</span>
+                <span class="num_btn_t" @click="input(num)" v-else class="fg">{{num}}</span>
+            </template>
+        </div>
+    </div>
+
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                message: '第1关',
+                level: 1,
+                random: parseInt(Math.random() * 100),
+                tip: "",
+                count: 100,
+                left: 0,
+                right: 100,
+                history: [],
+                success: false
+            },
+            methods: {
+                input: function (num) {
+                    this.history.push(num);
+                    if (num < this.left || num > this.right) {
+                        this.tip = "您输入的答案超出范围";
+                        return;
+                    }
+                    if (num == this.random) {
+                        this.tip = "恭喜你成功猜对结果：" + this.random;
+                        this.left = num;
+                        this.right = num;
+                        this.success = true;
+                    } else if (num > this.random) {
+                        this.right = num - 1;
+                        this.tip = "太大了！";
+                    } else if (num < this.random) {
+                        this.left = num + 1;
+                        this.tip = "太小了！";
+                    }
+                },
+                nextGame: function (count) {
+                    this.level++;
+                    this.message = '第' + this.level + '关';
+                    this.count = this.count * 2;
+                    this.random = parseInt(Math.random() * this.count);
+                    this.tip = "";
+                    this.left = 0;
+                    this.right = this.count;
+                    this.history = [];
+                    this.success = false;
+                },
+                newGame: function (count) {
+                    this.message = '第' + this.level + '关';
+                    this.random = parseInt(Math.random() * this.count);
+                    this.tip = "";
+                    this.left = 0;
+                    this.right = this.count;
+                    this.history = [];
+                    this.success = false;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>
