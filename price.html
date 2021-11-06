@@ -1,68 +1,96 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>立即支付 - 一个奇鸽船新体验</title>
-    <link rel="stylesheet" href="/res/css/spectre.min.css">
-    <link rel="stylesheet" href="/res/css/app.css">
-    <script src="/res/js/app.js"></script>
-    <script src="/res/js/vue.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>价格 - 一个奇鸽船新体验</title>
+    <link rel="icon" href="http://00houqq.cn/favicon.ico" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <style>
+        .price {
+            color: red
+        }
+
+        #pay1,
+        #pay2 {
+            font-size: 30px;
+        }
+
+        .mcard {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 5px;
+        }
+
+        .mcard:hover {
+            background-color: #eeeeee;
+        }
+    </style>
     <script>
-        function copy(text) {
-            var input = document.createElement('input');
-            input.setAttribute('value', text);
-            document.body.appendChild(input);
-            input.select();
-            var result = document.execCommand('copy');
-            document.body.removeChild(input);
-            return result;
+        function getUsername() {
+            if (location.href.indexOf('#') > -1) {
+                var username = location.href.split('#')
+                var str = ''
+                if (username.length > 1) {
+                    str = username[1]
+                }
+                return str;
+            }
+            var username = location.href.split('?')
+            var str = ''
+            if (username.length > 1) {
+                str = username[1]
+            }
+            return str;
         }
-        function doCopy(me) {
-            var textBefore = me.innerText;
-            copy(app.username)
-            me.innerText='✅'
-            setTimeout(() => {
-                me.innerText=textBefore
-            }, 1000);
+        function gopay() {
+            var str = getUsername();
+            location.href = '/yigeqige/topup.html?u=' + str;
         }
+
+        function checkUsername() {
+            var username = getUsername();
+            if (!username || username == '') {
+                document.getElementById('info1').style.display = '';
+                document.getElementById('info2').style.display = '';
+            }
+        }
+        setTimeout('checkUsername()', 100);
     </script>
 </head>
 
 <body>
-    <div id="app" class="column">
-        <div class="waterfall">
-            <h1>
-                立即支付
-            </h1>
-            <b style="color: red;">支付时一定记得备注上您的用户名</b>
-            <h3>[[username]] <button v-if='username' class="btn btn-primary"
-                    onclick="doCopy(this)">复制</button></h3>
-            <a href="https://qr.alipay.com/fkx10794veb3c3nh4lziw43"><img src="res/alipay.jpg" alt="alipay"></a>
-            <a href="">
-                <img src="res/q.png" alt="qq"></a>
-            <span>充值将在一个工作日内完成</span>
-            <span>售后QQ群:</span>
-            <span>联系我们: 86116794@gmail.com</span>
+    <div style="display: flex;flex-direction: column;align-items: center;">
+        <div
+            style="margin-top: 20px;display: flex;flex-direction: column;align-items: center;max-width: 700px;width: 100%;">
+            <h2>无法支付请联系开发者</h2>
+            <div id="info1" style="display: none">请先注册一个账号再充值，<a href="http://00houqq.cn/">立即下载客户端</a></div>
+            <div style="display: flex;flex-direction: row;align-items: center;padding: 10px;">
+                <div class="card mcard">
+                    <span id="pay1" class="price">12.2元3月</span>
+                    <span><s>原价:12.2元3月</s></span>
+                </div>
+                <div class="card mcard">
+                    <span id="pay2" class="price">15.5元终身</span>
+                    <span><s>原价:15.5元终身</s></span>
+                </div>
+            </div>
+            <div id="info2" style="display: none">因为支付的时候需要备注上你的账号名</div>
+            <button class="btn waves-effect waves-light cyan" type="submit" name="action" onclick="gopay()">去支付
+            </button>
         </div>
     </div>
     <script>
-        app = new Vue({
-            el: '#app',
-            data: {
-                prices: [],
-                username: ''
-            },
-            delimiters:['[[',']]'],
-            created: function () {
-                var params = parseQuery(location.href)
-                this.username = params['username']
-            }
-        })
+        M.AutoInit()
+        setTimeout("document.getElementById('pay1').classList.add('scale-in')", 500)
     </script>
 </body>
+
+   <script src="https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js"></script>
 
 </html>
