@@ -1,0 +1,135 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>赞助页面</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  #sponsorship {
+    margin: 20px auto;
+    max-width: 600px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  #qrCode {
+    width: 300px;
+    height: 300px;
+    margin: 20px auto;
+  }
+  
+  #sponsorList {
+    text-align: left;
+    margin-top: 20px;
+  }
+  
+  #sponsorList table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  #sponsorList th, #sponsorList td {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #sponsorList th {
+    background-color: #f2f2f2;
+  }
+
+  .message {
+    display: none;
+    margin-top: 10px;
+  }
+
+  .message-container {
+    text-align: left;
+    margin-top: 10px;
+  }
+
+  .message-container p {
+    margin: 5px 0;
+  }
+</style>
+</head>
+<body>
+<div id="sponsorship">
+  <h1>赞助我们</h1>
+  <h3>赞助后请联系邮件:maorunzhia@qq.com将您放入赞助名单</h3>
+  <p>感谢您的慷慨赞助！</p>
+  <p>捐赠收入将用于维持App的良好运行~</p>
+  <img id="qrCode" src="mm_reward_qrcode_1719737570458.png" alt="赞助二维码">
+  <div id="sponsorList">
+    <h2>赞助名单</h2>
+    <p>点击查看留言</p>
+    <table>
+      <thead>
+        <tr>
+          <th>名称</th>
+          <th>金额</th>
+        </tr>
+      </thead>
+      <tbody id="sponsorData">
+        <!-- 赞助名单将由JavaScript动态生成 -->
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  // 赞助名单数据，格式为 [{ name: '赞助者1', amount: 100, message: '留言1' }, { name: '赞助者2', amount: 200, message: '留言2' }, ...]
+  var sponsors = [
+    { name: '成为第一个赞助者', amount: 0, message: '无' },
+    // 添加更多赞助者数据...
+  ];
+
+  // 按金额降序排序
+  sponsors.sort(function(a, b) {
+    return b.amount - a.amount;
+  });
+
+  var sponsorDataElement = document.getElementById("sponsorData");
+
+  // 动态生成赞助名单表格行
+  sponsors.forEach(function(sponsor) {
+    var row = document.createElement("tr");
+    row.innerHTML = "<td>" + sponsor.name + "</td><td>" + sponsor.amount + "</td>";
+    sponsorDataElement.appendChild(row);
+
+    // 添加留言区域
+    var messageContainer = document.createElement("div");
+    messageContainer.classList.add("message-container");
+    row.parentNode.insertBefore(messageContainer, row.nextSibling);
+    var message = document.createElement("p");
+    message.textContent = sponsor.message;
+    messageContainer.appendChild(message);
+    messageContainer.style.display = "none";
+  });
+
+  // 添加点击事件监听器
+  var rows = document.querySelectorAll("#sponsorData tr");
+  rows.forEach(function(row, index) {
+    row.addEventListener("click", function() {
+      var messageContainer = this.nextSibling;
+      if (messageContainer.style.display === "none") {
+        messageContainer.style.display = "block";
+      } else {
+        messageContainer.style.display = "none";
+      }
+    });
+  });
+});
+</script>
+
+</body>
+</html>
