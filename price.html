@@ -1,64 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>价格 - 一个奇鸽船新体验</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <title>江湖再见，后会有期</title>
     <style>
-        .price {
-            color: red
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-
-        #pay1,
-        #pay2 {
-            font-size: 30px;
-        }
-
-        .mcard {
-            padding: 20px;
+        
+        body {
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            margin: 5px;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
         }
-
-        .mcard:hover {
-            background-color: #eeeeee;
+        
+        .center-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: #333;
+            text-align: center;
+            letter-spacing: 2px;
         }
     </style>
-    <script>
-        function getUsername() {
-            if (location.href.indexOf('#') > -1) {
-                var username = location.href.split('#')
-                var str = ''
-                if (username.length > 1) {
-                    str = username[1]
-                }
-                return str;
-            }
-            var username = location.href.split('?')
-            var str = ''
-            if (username.length > 1) {
-                str = username[1]
-            }
-            return str;
-        }
-        function gopay() {
-            var str = getUsername();
-            location.href = '/topup.html?u=' + str;
-        }
-
-        function checkUsername() {
-            var username = getUsername();
-            if (!username || username == '') {
-                document.getElementById('info1').style.display = '';
-                document.getElementById('info2').style.display = '';
-            }
-        }
+</head>
+<body>
+    <div class="center-text">
+        江湖再见，后会有期
+    </div>
+</body>
+</html>
         setTimeout('checkUsername()', 100);
     </script>
 </head>
