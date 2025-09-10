@@ -36,37 +36,4 @@
     </div>
 </body>
 </html>
-        setTimeout('checkUsername()', 100);
-    </script>
-</head>
-
-<body>
-    <div style="display: flex;flex-direction: column;align-items: center;">
-        <div
-            style="margin-top: 20px;display: flex;flex-direction: column;align-items: center;max-width: 700px;width: 100%;">
-            <h2>无法支付请联系开发者</h2>
-            <div id="info1" style="display: none">请先注册一个账号再充值，<a href="http://yigeqige.com/">立即下载客户端</a></div>
-            <div style="display: flex;flex-direction: row;align-items: center;padding: 10px;">
-                <div class="card mcard">
-                    <span id="pay1" class="price">5.5元1月</span>
-                    <span><s>原价:5.5元1月</s></span>
-                </div>
-                <div class="card mcard">
-                    <span id="pay2" class="price">10元终身</span>
-                    <span><s>原价:15.5元终身</s></span>
-                </div>
-            </div>
-            <div id="info2" style="display: none">因为支付的时候需要备注上你的账号名</div>
-            <button class="btn waves-effect waves-light cyan" type="submit" name="action" onclick="gopay()">去支付
-            </button>
-        </div>
-    </div>
-    <script>
-        M.AutoInit()
-        setTimeout("document.getElementById('pay1').classList.add('scale-in')", 500)
-    </script>
-</body>
-
-   <script src="https://cdn.bootcss.com/sweetalert/2.1.2/sweetalert.min.js"></script>
-
-</html>
+        
