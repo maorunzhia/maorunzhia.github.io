@@ -1,6 +1,5 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +24,7 @@
     width: 300px;
     height: 300px;
     margin: 20px auto;
+    display: block;
   }
   
   #sponsorList {
@@ -38,26 +38,39 @@
   }
   
   #sponsorList th, #sponsorList td {
-    padding: 8px;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
   }
   
   #sponsorList th {
     background-color: #f2f2f2;
-  }
-
-  .message {
-    display: none;
-    margin-top: 10px;
-  }
-
-  .message-container {
     text-align: left;
-    margin-top: 10px;
   }
 
-  .message-container p {
-    margin: 5px 0;
+  #sponsorList tr {
+    cursor: pointer;
+    transition: background-color 0.2s;
+  }
+
+  #sponsorList tr:hover {
+    background-color: #f9f9f9;
+  }
+
+  .message-row {
+    display: none;
+    background-color: #f8f8f8;
+  }
+
+  .message-row td {
+    padding: 10px;
+    color: #555;
+    font-size: 14px;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .no-message {
+    color: #999;
+    font-style: italic;
   }
 </style>
 </head>
@@ -87,18 +100,14 @@
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {
-  // 赞助名单数据，格式为 [{ name: '赞助者1', amount: 100, message: '留言1' }, { name: '赞助者2', amount: 200, message: '留言2' }, ...]
+  // 赞助名单数据
   var sponsors = [
     { name: 'WQ.', amount: 1, message: '小代不呆' },
     { name: 'C 王先森彡', amount: 5.2, message: '你终于又回来了！' },
-  { name: '羽霖咲华', amount: 10, message: '补票，6年前你送了我一个奇鸽永久会员，我决定补回来' },
+    { name: '羽霖咲华', amount: 10, message: '补票，6年前你送了我一个奇鸽永久会员，我决定补回来' },
     { name: '怎扰', amount: 5, message: '匿名用了很久了，确实厉害' },
- { name: '唔西迪西', amount: 5, message: '' },
-  { name: '小米粥同学', amount: 5, message: '' },
-
-
-​
-    // 添加更多赞助者数据...
+    { name: '唔西迪西', amount: 5, message: '' },
+    { name: '小米粥同学', amount: 5, message: '' }
   ];
 
   // 按金额降序排序
@@ -108,36 +117,40 @@ document.addEventListener("DOMContentLoaded", function() {
 
   var sponsorDataElement = document.getElementById("sponsorData");
 
-  // 动态生成赞助名单表格行
+  // 动态生成赞助名单
   sponsors.forEach(function(sponsor) {
+    // 主行（显示昵称和金额）
     var row = document.createElement("tr");
     row.innerHTML = "<td>" + sponsor.name + "</td><td>" + sponsor.amount + "</td>";
     sponsorDataElement.appendChild(row);
 
-    // 添加留言区域
-    var messageContainer = document.createElement("div");
-    messageContainer.classList.add("message-container");
-    row.parentNode.insertBefore(messageContainer, row.nextSibling);
-    var message = document.createElement("p");
-    message.textContent = sponsor.message;
-    messageContainer.appendChild(message);
-    messageContainer.style.display = "none";
+    // 留言行（也是 tr，放在表格里合法）
+    var msgRow = document.createElement("tr");
+    msgRow.className = "message-row";
+    var msgText = sponsor.message.trim() ? sponsor.message : '<span class="no-message">（无留言）</span>';
+    msgRow.innerHTML = '<td colspan="2">' + msgText + '</td>';
+    sponsorDataElement.appendChild(msgRow);
   });
 
-  // 添加点击事件监听器
-  var rows = document.querySelectorAll("#sponsorData tr");
-  rows.forEach(function(row, index) {
-    row.addEventListener("click", function() {
-      var messageContainer = this.nextSibling;
-      if (messageContainer.style.display === "none") {
-        messageContainer.style.display = "block";
-      } else {
-        messageContainer.style.display = "none";
-      }
-    });
+  // 事件委托：点击主行时展开/收起留言
+  sponsorDataElement.addEventListener("click", function(e) {
+    var row = e.target.closest("tr");
+    if (!row || row.classList.contains("message-row")) return;
+    
+    var msgRow = row.nextElementSibling;
+    if (!msgRow) return;
+
+    if (msgRow.style.display === "table-row") {
+      msgRow.style.display = "none";
+    } else {
+      // 先收起其他已展开的留言（可选，想要同时展开多个可以删掉这段）
+      document.querySelectorAll(".message-row").forEach(function(r) {
+        r.style.display = "none";
+      });
+      msgRow.style.display = "table-row";
+    }
   });
 });
 </script>
-
 </body>
 </html>
